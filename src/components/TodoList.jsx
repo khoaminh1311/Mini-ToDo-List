@@ -1,6 +1,14 @@
 import TodoItem from './TodoItem'
 
-export default function TodoList({ todos = [], onToggleTodo }) {
+export default function TodoList({
+  todos = [],
+  editingId,
+  onToggleTodo,
+  onDeleteTodo,
+  onStartEdit,
+  onCancelEdit,
+  onSaveTodo,
+}) {
   return (
     <section aria-label="Todo list" className="flex-1 mt-5">
       {todos.length === 0 ? (
@@ -17,7 +25,12 @@ export default function TodoList({ todos = [], onToggleTodo }) {
             <TodoItem
               key={todo.id}
               todo={todo}
+              isEditing={editingId === todo.id}
               onToggleTodo={onToggleTodo}
+              onDeleteTodo={onDeleteTodo}
+              onStartEdit={onStartEdit}
+              onCancelEdit={onCancelEdit}
+              onSaveTodo={onSaveTodo}
             />
           ))}
         </ul>

@@ -9,6 +9,9 @@ export default function App() {
   // Main state holding the list of todos
   const [todos, setTodos] = useState([])
 
+  // State tracking which todo is currently being edited (null when no todo is being edited)
+  const [editingId, setEditingId] = useState(null)
+
   // Function to create a new todo and append it to the todos state
   const handleAddTodo = (text) => {
     const trimmedText = text.trim()
@@ -32,6 +35,37 @@ export default function App() {
     )
   }
 
+  // Function to delete a todo by id immutably using filter()
+  const handleDeleteTodo = (id) => {
+    setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== id))
+    if (editingId === id) {
+      setEditingId(null)
+    }
+  }
+
+  // Start editing a specific todo (ensures only one is edited at a time)
+  const handleStartEdit = (id) => {
+    setEditingId(id)
+  }
+
+  // Cancel editing mode
+  const handleCancelEdit = () => {
+    setEditingId(null)
+  }
+
+  // Save the edited todo text immutably
+  const handleSaveTodo = (id, newText) => {
+    const trimmedText = newText.trim()
+    if (!trimmedText) return
+
+    setTodos((prevTodos) =>
+      prevTodos.map((todo) =>
+        todo.id === id ? { ...todo, text: trimmedText } : todo
+      )
+    )
+    setEditingId(null)
+  }
+
   // Derived count for completed todos
   const completedCount = todos.filter((todo) => todo.completed).length
 
@@ -43,7 +77,15 @@ export default function App() {
         <TodoProgress totalCount={todos.length} completedCount={completedCount} />
         <TodoForm onAddTodo={handleAddTodo} />
         <TodoFilter />
-        <TodoList todos={todos} onToggleTodo={handleToggleTodo} />
+        <TodoList
+          todos={todos}
+          editingId={editingId}
+          onToggleTodo={handleToggleTodo}
+          onDeleteTodo={handleDeleteTodo}
+          onStartEdit={handleStartEdit}
+          onCancelEdit={handleCancelEdit}
+          onSaveTodo={handleSaveTodo}
+        />
       </main>
     </div>
   )
