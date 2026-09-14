@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import TodoHeader from './components/TodoHeader'
 import TodoProgress from './components/TodoProgress'
 import TodoForm from './components/TodoForm'
@@ -6,10 +6,28 @@ import TodoFilter from './components/TodoFilter'
 import TodoList from './components/TodoList'
 
 export default function App() {
-  // Main state holding the list of todos
-  const [todos, setTodos] = useState([])
+  // 1. Original todos state holding all created tasks
+  const [todos, setTodos] = useState(() => {
+    try {
+      const savedTodos = localStorage.getItem('todos')
+      if (savedTodos) {
+        return JSON.parse(savedTodos)
+      }
+    } catch (error) {
+      console.error('Failed to parse todos from localStorage', error)
+    }
+    return []
+  })
 
-  // State tracking which todo is currently being edited (null when no todo is being edited)
+  // Save effect: Runs whenever the `todos` state changes
+  useEffect(() => {
+    localStorage.setItem('todos', JSON.stringify(todos))
+  }, [todos])
+
+  // 2. Filter state: 'all' | 'active' | 'completed'
+  const [filter, setFilter] = useState('all')
+
+  // 3. Editing state: id of todo currently being edited
   const [editingId, setEditingId] = useState(null)
 
   // Function to create a new todo and append it to the todos state
@@ -43,7 +61,7 @@ export default function App() {
     }
   }
 
-  // Start editing a specific todo (ensures only one is edited at a time)
+  // Start editing a specific todo
   const handleStartEdit = (id) => {
     setEditingId(id)
   }
@@ -66,7 +84,15 @@ export default function App() {
     setEditingId(null)
   }
 
-  // Derived count for completed todos
+  // Derived data: filter todos according to current filter ('all' | 'active' | 'completed')
+  // The original `todos` state is NEVER modified here.
+  const filteredTodos = todos.filter((todo) => {
+    if (filter === 'active') return !todo.completed
+    if (filter === 'completed') return todo.completed
+    return true
+  })
+
+  // Derived count for completed todos (derived from the original todos state)
   const completedCount = todos.filter((todo) => todo.completed).length
 
   return (
@@ -76,9 +102,11 @@ export default function App() {
         <TodoHeader />
         <TodoProgress totalCount={todos.length} completedCount={completedCount} />
         <TodoForm onAddTodo={handleAddTodo} />
-        <TodoFilter />
+        <TodoFilter currentFilter={filter} onFilterChange={setFilter} />
         <TodoList
-          todos={todos}
+          todos={filteredTodos}
+          filter={filter}
+          totalTodosCount={todos.length}
           editingId={editingId}
           onToggleTodo={handleToggleTodo}
           onDeleteTodo={handleDeleteTodo}
