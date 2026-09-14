@@ -1,33 +1,35 @@
-export default function TodoFilter() {
+export default function TodoFilter({ currentFilter = 'all', onFilterChange }) {
+  const filters = [
+    { id: 'all', label: 'All' },
+    { id: 'active', label: 'Active' },
+    { id: 'completed', label: 'Completed' },
+  ]
+
   return (
     <div
       role="group"
       aria-label="Filter tasks"
       className="mt-5 flex items-center gap-2.5"
     >
-      <button
-        type="button"
-        aria-pressed="true"
-        className="bg-slate-900 text-white text-xs sm:text-sm font-medium px-4 py-2 rounded-xl transition-colors cursor-pointer"
-      >
-        All
-      </button>
+      {filters.map((filter) => {
+        const isActive = currentFilter === filter.id
 
-      <button
-        type="button"
-        aria-pressed="false"
-        className="bg-slate-100/90 text-slate-600 hover:bg-slate-200 text-xs sm:text-sm font-medium px-4 py-2 rounded-xl transition-colors cursor-pointer"
-      >
-        Active
-      </button>
-
-      <button
-        type="button"
-        aria-pressed="false"
-        className="bg-slate-100/90 text-slate-600 hover:bg-slate-200 text-xs sm:text-sm font-medium px-4 py-2 rounded-xl transition-colors cursor-pointer"
-      >
-        Completed
-      </button>
+        return (
+          <button
+            key={filter.id}
+            type="button"
+            aria-pressed={isActive}
+            onClick={() => onFilterChange(filter.id)}
+            className={`text-xs sm:text-sm font-medium px-4 py-2 rounded-xl transition-colors cursor-pointer ${
+              isActive
+                ? 'bg-slate-900 text-white shadow-sm'
+                : 'bg-slate-100/90 text-slate-600 hover:bg-slate-200'
+            }`}
+          >
+            {filter.label}
+          </button>
+        )
+      })}
     </div>
   )
 }
