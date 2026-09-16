@@ -25,7 +25,7 @@ export default function TodoList({
     <section aria-label="Todo list" className="flex-1 flex flex-col mt-4 sm:mt-5">
       {todos.length === 0 ? (
         /* Original Clean Empty State */
-        <div className="py-20 sm:py-24 flex items-center justify-center text-center">
+        <div className="flex-1 flex items-center justify-center text-center">
           <p className="text-sm sm:text-base text-slate-400 dark:text-slate-500 select-none">
             {emptyMessage}
           </p>
