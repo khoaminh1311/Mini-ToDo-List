@@ -35,7 +35,7 @@ export default function TodoItem({
   }
 
   return (
-    <li className="flex items-start gap-3 p-3 sm:p-3.5 rounded-2xl bg-slate-50/70 hover:bg-white border border-slate-100 hover:border-slate-200/80 hover:shadow-xs transition-all duration-150 group">
+    <li className="flex items-start gap-3 p-3 sm:p-3.5 rounded-2xl bg-slate-50/70 hover:bg-white dark:bg-slate-800/80 dark:hover:bg-slate-800 border border-slate-100 hover:border-slate-200/80 dark:border-slate-700/80 dark:hover:border-slate-600 hover:shadow-xs transition-all duration-150 group">
       {isEditing ? (
         /* Editing Mode Form */
         <form onSubmit={handleSaveSubmit} className="flex items-center gap-1.5 sm:gap-2 w-full">
@@ -48,12 +48,12 @@ export default function TodoItem({
             }}
             autoFocus
             aria-label="Edit task text"
-            className="flex-1 min-w-0 px-3 py-1.5 bg-white border border-blue-500 rounded-xl text-sm sm:text-base text-slate-800 focus:outline-none focus:ring-4 focus:ring-blue-500/10 transition-all shadow-xs"
+            className="flex-1 min-w-0 px-3 py-1.5 bg-white dark:bg-slate-800 border border-blue-500 rounded-xl text-sm sm:text-base text-slate-800 dark:text-slate-100 focus:outline-none focus:ring-4 focus:ring-blue-500/10 dark:focus:ring-blue-500/20 transition-all shadow-xs"
           />
           <button
             type="submit"
             aria-label="Save changes"
-            className="px-3 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-700 active:scale-95 text-white text-xs sm:text-sm font-semibold transition-all duration-150 shadow-xs cursor-pointer shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-1"
+            className="px-3 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-700 active:scale-95 text-white text-xs sm:text-sm font-semibold transition-all duration-150 shadow-xs cursor-pointer shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-1 dark:focus-visible:ring-offset-slate-900"
           >
             Save
           </button>
@@ -61,7 +61,7 @@ export default function TodoItem({
             type="button"
             onClick={handleCancelClick}
             aria-label="Cancel editing"
-            className="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200/80 active:scale-95 text-slate-600 text-xs sm:text-sm font-medium transition-all duration-150 cursor-pointer shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400 focus-visible:ring-offset-1"
+            className="px-2.5 sm:px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200/80 dark:bg-slate-700 dark:hover:bg-slate-600 active:scale-95 text-slate-600 dark:text-slate-300 dark:hover:text-slate-100 text-xs sm:text-sm font-medium transition-all duration-150 cursor-pointer shrink-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-400 focus-visible:ring-offset-1 dark:focus-visible:ring-offset-slate-900"
           >
             Cancel
           </button>
@@ -76,10 +76,10 @@ export default function TodoItem({
             aria-checked={todo.completed}
             aria-label={`Mark "${todo.text}" as ${todo.completed ? 'incomplete' : 'complete'}`}
             onClick={() => onToggleTodo(todo.id)}
-            className={`w-5 h-5 rounded-full flex items-center justify-center shrink-0 mt-0.5 transition-all duration-150 cursor-pointer active:scale-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 ${
+            className={`w-5 h-5 rounded-full flex items-center justify-center shrink-0 mt-0.5 transition-all duration-150 cursor-pointer active:scale-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-900 ${
               todo.completed
                 ? 'bg-blue-600 border-2 border-blue-600 text-white shadow-xs'
-                : 'border-2 border-slate-300 hover:border-blue-500 hover:bg-blue-50/50 bg-white'
+                : 'border-2 border-slate-300 dark:border-slate-500 hover:border-blue-500 dark:hover:border-blue-500 hover:bg-blue-50/50 dark:hover:bg-slate-700/50 bg-white dark:bg-slate-800'
             }`}
           >
             {/* Conditional rendering: show checkmark icon only when completed */}
@@ -102,8 +102,8 @@ export default function TodoItem({
           <span
             className={`flex-1 min-w-0 text-sm sm:text-base font-normal leading-relaxed break-words [overflow-wrap:anywhere] transition-all duration-200 ${
               todo.completed
-                ? 'text-slate-400 line-through decoration-slate-300'
-                : 'text-slate-700'
+                ? 'text-slate-400 line-through decoration-slate-300 dark:text-slate-500 dark:decoration-slate-600'
+                : 'text-slate-700 dark:text-slate-200'
             }`}
           >
             {todo.text}
@@ -115,7 +115,7 @@ export default function TodoItem({
               type="button"
               aria-label={`Edit "${todo.text}"`}
               onClick={handleEditClick}
-              className="text-slate-400 hover:text-blue-600 hover:bg-blue-50/80 active:scale-90 p-1.5 rounded-lg transition-all duration-150 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
+              className="text-slate-400 hover:text-blue-600 hover:bg-blue-50/80 dark:hover:bg-slate-700 active:scale-90 p-1.5 rounded-lg transition-all duration-150 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -136,7 +136,7 @@ export default function TodoItem({
               type="button"
               aria-label={`Delete "${todo.text}"`}
               onClick={() => onDeleteTodo(todo.id)}
-              className="text-slate-400 hover:text-red-500 hover:bg-red-50/80 active:scale-90 p-1.5 rounded-lg transition-all duration-150 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500"
+              className="text-slate-400 hover:text-red-500 hover:bg-red-50/80 dark:hover:bg-slate-700 active:scale-90 p-1.5 rounded-lg transition-all duration-150 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-500"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"

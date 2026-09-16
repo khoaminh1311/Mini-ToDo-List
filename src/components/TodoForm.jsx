@@ -19,19 +19,19 @@ export default function TodoForm({ onAddTodo }) {
 
   return (
     <form onSubmit={handleSubmit} className="mt-5 sm:mt-6">
-      <div className="flex items-center justify-between bg-slate-50 border border-slate-200/80 rounded-2xl p-1.5 pl-4 sm:pl-5 focus-within:bg-white focus-within:border-blue-500 focus-within:ring-4 focus-within:ring-blue-500/10 transition-all duration-200 shadow-xs">
+      <div className="flex items-center justify-between bg-slate-50 dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700 rounded-2xl p-1.5 pl-4 sm:pl-5 focus-within:bg-white dark:focus-within:bg-slate-800 focus-within:border-blue-500 dark:focus-within:border-blue-500 focus-within:ring-4 focus-within:ring-blue-500/10 dark:focus-within:ring-blue-500/20 transition-all duration-200 shadow-xs">
         <input
           type="text"
           value={text}
           onChange={(e) => setText(e.target.value)}
           placeholder="What needs to be done?"
           aria-label="What needs to be done?"
-          className="w-full bg-transparent text-sm sm:text-base text-slate-800 placeholder:text-slate-400 focus:outline-none py-1"
+          className="w-full bg-transparent text-sm sm:text-base text-slate-800 dark:text-slate-100 placeholder:text-slate-400 focus:outline-none py-1"
         />
         <button
           type="submit"
           aria-label="Add task"
-          className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-blue-600 hover:bg-blue-700 active:scale-95 text-white flex items-center justify-center shrink-0 transition-all duration-150 shadow-sm shadow-blue-500/20 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
+          className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-blue-600 hover:bg-blue-700 active:scale-95 text-white flex items-center justify-center shrink-0 transition-all duration-150 shadow-sm shadow-blue-500/20 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-900"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

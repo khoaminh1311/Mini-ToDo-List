@@ -27,6 +27,29 @@ export default function App() {
   // 2. Filter state: 'all' | 'active' | 'completed'
   const [filter, setFilter] = useState('all')
 
+  // 3. Theme state: Load from localStorage or default to false (Light mode)
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    try {
+      const savedTheme = localStorage.getItem('todo-theme')
+      if (savedTheme !== null) {
+        return JSON.parse(savedTheme)
+      }
+    } catch (error) {
+      console.error('Failed to parse theme from localStorage', error)
+    }
+    return false // Default to light mode
+  })
+
+  // Theme effect: Save to localStorage and toggle 'dark' class on <html>
+  useEffect(() => {
+    localStorage.setItem('todo-theme', JSON.stringify(isDarkMode))
+    if (isDarkMode) {
+      document.documentElement.classList.add('dark')
+    } else {
+      document.documentElement.classList.remove('dark')
+    }
+  }, [isDarkMode])
+
   // 3. Editing state: id of todo currently being edited
   const [editingId, setEditingId] = useState(null)
 
@@ -96,10 +119,13 @@ export default function App() {
   const completedCount = todos.filter((todo) => todo.completed).length
 
   return (
-    <div className="min-h-screen w-full bg-[#f8fafc] flex items-center justify-center px-4 py-6 sm:px-6 sm:py-8 md:p-8 overflow-x-hidden">
+    <div className="min-h-screen w-full bg-[#f8fafc] dark:bg-slate-900 flex items-center justify-center px-4 py-6 sm:px-6 sm:py-8 md:p-8 overflow-x-hidden transition-colors duration-200">
       {/* Centered White Card Container with stable min-height and symmetrical padding */}
-      <main className="w-full max-w-[480px] mx-auto min-h-[480px] sm:min-h-[520px] bg-white rounded-3xl shadow-[0_16px_45px_-15px_rgba(0,0,0,0.07)] border border-slate-100 p-5 sm:p-7 md:p-8 flex flex-col">
-        <TodoHeader />
+      <main className="w-full max-w-[480px] mx-auto min-h-[480px] sm:min-h-[520px] bg-white dark:bg-slate-800 rounded-3xl shadow-[0_16px_45px_-15px_rgba(0,0,0,0.07)] border border-slate-100 dark:border-slate-700 p-5 sm:p-7 md:p-8 flex flex-col transition-colors duration-200">
+        <TodoHeader 
+          isDarkMode={isDarkMode} 
+          onToggleTheme={() => setIsDarkMode(!isDarkMode)} 
+        />
         <TodoProgress totalCount={todos.length} completedCount={completedCount} />
         <TodoForm onAddTodo={handleAddTodo} />
         <TodoFilter currentFilter={filter} onFilterChange={setFilter} />
