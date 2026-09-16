@@ -2,6 +2,7 @@ import TodoItem from './TodoItem'
 
 export default function TodoList({
   todos = [],
+  filter = 'all',
   totalTodosCount = 0,
   editingId,
   onToggleTodo,
@@ -11,13 +12,22 @@ export default function TodoList({
   onSaveTodo,
   onClearCompleted,
 }) {
+  let emptyMessage = "No tasks yet. Add one above!"
+  if (totalTodosCount > 0 && todos.length === 0) {
+    if (filter === 'active') {
+      emptyMessage = "No active tasks."
+    } else if (filter === 'completed') {
+      emptyMessage = "No completed tasks."
+    }
+  }
+
   return (
     <section aria-label="Todo list" className="flex-1 mt-4 sm:mt-5">
       {todos.length === 0 ? (
         /* Original Clean Empty State */
         <div className="py-20 sm:py-24 flex items-center justify-center text-center">
           <p className="text-sm sm:text-base text-slate-400 dark:text-slate-500 select-none">
-            No tasks yet. Add one above!
+            {emptyMessage}
           </p>
         </div>
       ) : (
