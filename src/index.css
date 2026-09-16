@@ -1,8 +1,9 @@
 @import "tailwindcss";
+@custom-variant dark (&:is(.dark *));
 
 @layer base {
   body {
-    @apply bg-[#f8fafc] text-slate-900 antialiased selection:bg-blue-100 selection:text-blue-900;
+    @apply bg-[#f8fafc] dark:bg-slate-900 text-slate-900 dark:text-slate-100 antialiased selection:bg-blue-100 selection:text-blue-900;
   }
 
   /* Custom subtle scrollbar */

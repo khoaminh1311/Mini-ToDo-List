@@ -16,7 +16,7 @@ export default function TodoList({
       {todos.length === 0 ? (
         /* Original Clean Empty State */
         <div className="py-20 sm:py-24 flex items-center justify-center text-center">
-          <p className="text-sm sm:text-base text-slate-400 select-none">
+          <p className="text-sm sm:text-base text-slate-400 dark:text-slate-500 select-none">
             No tasks yet. Add one above!
           </p>
         </div>
@@ -40,7 +40,7 @@ export default function TodoList({
 
       {/* Status tracking total tasks */}
       {totalTodosCount > 0 && (
-        <div className="mt-5 sm:mt-6 flex items-center justify-between text-xs sm:text-sm text-slate-500 font-medium px-1">
+        <div className="mt-5 sm:mt-6 flex items-center justify-between text-xs sm:text-sm text-slate-500 dark:text-slate-400 font-medium px-1">
           <span>
             {totalTodosCount} {totalTodosCount === 1 ? 'task' : 'tasks'} total
           </span>
