@@ -96,9 +96,9 @@ export default function App() {
   const completedCount = todos.filter((todo) => todo.completed).length
 
   return (
-    <div className="min-h-screen bg-[#f8fafc] flex items-center justify-center p-4 sm:p-6 md:p-8">
-      {/* Centered White Card Container */}
-      <main className="w-full max-w-[480px] bg-white rounded-3xl shadow-[0_12px_40px_-15px_rgba(0,0,0,0.07)] border border-slate-100 p-6 sm:p-8 flex flex-col">
+    <div className="min-h-screen w-full bg-[#f8fafc] flex items-center justify-center px-4 py-6 sm:px-6 sm:py-8 md:p-8 overflow-x-hidden">
+      {/* Centered White Card Container with stable min-height and symmetrical padding */}
+      <main className="w-full max-w-[480px] mx-auto min-h-[480px] sm:min-h-[520px] bg-white rounded-3xl shadow-[0_16px_45px_-15px_rgba(0,0,0,0.07)] border border-slate-100 p-5 sm:p-7 md:p-8 flex flex-col">
         <TodoHeader />
         <TodoProgress totalCount={todos.length} completedCount={completedCount} />
         <TodoForm onAddTodo={handleAddTodo} />

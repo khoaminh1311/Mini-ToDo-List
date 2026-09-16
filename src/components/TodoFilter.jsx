@@ -9,7 +9,7 @@ export default function TodoFilter({ currentFilter = 'all', onFilterChange }) {
     <div
       role="group"
       aria-label="Filter tasks"
-      className="mt-5 flex items-center gap-2.5"
+      className="mt-5 flex items-center gap-2 sm:gap-2.5"
     >
       {filters.map((filter) => {
         const isActive = currentFilter === filter.id
@@ -20,10 +20,10 @@ export default function TodoFilter({ currentFilter = 'all', onFilterChange }) {
             type="button"
             aria-pressed={isActive}
             onClick={() => onFilterChange(filter.id)}
-            className={`text-xs sm:text-sm font-medium px-4 py-2 rounded-xl transition-colors cursor-pointer ${
+            className={`text-xs sm:text-sm font-semibold px-3.5 sm:px-4 py-1.5 sm:py-2 rounded-xl transition-all duration-150 cursor-pointer active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-slate-800 focus-visible:ring-offset-2 ${
               isActive
-                ? 'bg-slate-900 text-white shadow-sm'
-                : 'bg-slate-100/90 text-slate-600 hover:bg-slate-200'
+                ? 'bg-slate-900 text-white shadow-sm shadow-slate-900/20'
+                : 'bg-slate-100 text-slate-600 hover:bg-slate-200/80 hover:text-slate-800'
             }`}
           >
             {filter.label}

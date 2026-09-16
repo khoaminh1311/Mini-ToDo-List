@@ -18,20 +18,20 @@ export default function TodoForm({ onAddTodo }) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="mt-6">
-      <div className="flex items-center justify-between bg-slate-50/90 border border-slate-100 rounded-2xl p-1.5 pl-4 sm:pl-5 focus-within:ring-2 focus-within:ring-blue-500/20 focus-within:border-blue-400 transition-all">
+    <form onSubmit={handleSubmit} className="mt-5 sm:mt-6">
+      <div className="flex items-center justify-between bg-slate-50 border border-slate-200/80 rounded-2xl p-1.5 pl-4 sm:pl-5 focus-within:bg-white focus-within:border-blue-500 focus-within:ring-4 focus-within:ring-blue-500/10 transition-all duration-200 shadow-xs">
         <input
           type="text"
           value={text}
           onChange={(e) => setText(e.target.value)}
           placeholder="What needs to be done?"
           aria-label="What needs to be done?"
-          className="w-full bg-transparent text-sm md:text-base text-slate-700 placeholder:text-slate-400 focus:outline-none"
+          className="w-full bg-transparent text-sm sm:text-base text-slate-800 placeholder:text-slate-400 focus:outline-none py-1"
         />
         <button
           type="submit"
           aria-label="Add task"
-          className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-indigo-400 hover:bg-indigo-500 text-white flex items-center justify-center shrink-0 transition-colors shadow-sm cursor-pointer"
+          className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-blue-600 hover:bg-blue-700 active:scale-95 text-white flex items-center justify-center shrink-0 transition-all duration-150 shadow-sm shadow-blue-500/20 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

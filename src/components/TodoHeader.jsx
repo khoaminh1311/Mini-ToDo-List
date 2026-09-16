@@ -3,7 +3,7 @@ export default function TodoHeader() {
     <header className="flex items-center justify-between">
       <div className="flex items-center gap-3">
         {/* Blue rounded-square check icon */}
-        <div className="w-9 h-9 bg-blue-600 rounded-xl flex items-center justify-center text-white shadow-sm">
+        <div className="w-9 h-9 sm:w-10 sm:h-10 bg-gradient-to-tr from-blue-600 to-blue-500 rounded-xl flex items-center justify-center text-white shadow-md shadow-blue-500/20 transition-transform duration-200 hover:scale-105">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             className="w-5 h-5 stroke-[2.5]"
@@ -16,16 +16,18 @@ export default function TodoHeader() {
             <polyline points="20 6 9 17 4 12" />
           </svg>
         </div>
-        <h1 className="text-xl font-bold text-slate-800 tracking-tight">
-          Mini Todo
-        </h1>
+        <div>
+          <h1 className="text-xl sm:text-2xl font-bold text-slate-800 tracking-tight">
+            Mini Todo
+          </h1>
+        </div>
       </div>
 
       {/* Theme toggle icon button */}
       <button
         type="button"
         aria-label="Toggle theme"
-        className="text-slate-400 hover:text-slate-600 p-2 rounded-lg transition-colors cursor-pointer"
+        className="text-slate-400 hover:text-slate-600 hover:bg-slate-100 p-2 rounded-xl transition-all duration-150 active:scale-90 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
