@@ -84,6 +84,11 @@ export default function App() {
     }
   }
 
+  // Function to clear all completed todos
+  const handleClearCompleted = () => {
+    setTodos((prevTodos) => prevTodos.filter((todo) => !todo.completed))
+  }
+
   // Start editing a specific todo
   const handleStartEdit = (id) => {
     setEditingId(id)
@@ -139,6 +144,7 @@ export default function App() {
           onStartEdit={handleStartEdit}
           onCancelEdit={handleCancelEdit}
           onSaveTodo={handleSaveTodo}
+          onClearCompleted={handleClearCompleted}
         />
       </main>
     </div>
