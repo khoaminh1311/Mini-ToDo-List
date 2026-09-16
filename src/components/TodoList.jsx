@@ -2,7 +2,6 @@ import TodoItem from './TodoItem'
 
 export default function TodoList({
   todos = [],
-  filter = 'all',
   totalTodosCount = 0,
   editingId,
   onToggleTodo,
@@ -10,6 +9,7 @@ export default function TodoList({
   onStartEdit,
   onCancelEdit,
   onSaveTodo,
+  onClearCompleted,
 }) {
   return (
     <section aria-label="Todo list" className="flex-1 mt-4 sm:mt-5">
@@ -44,6 +44,13 @@ export default function TodoList({
           <span>
             {totalTodosCount} {totalTodosCount === 1 ? 'task' : 'tasks'} total
           </span>
+          <button
+            type="button"
+            onClick={onClearCompleted}
+            className="text-blue-600 hover:text-blue-700 hover:underline active:scale-95 transition-all duration-150 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 rounded px-1"
+          >
+            Clear completed
+          </button>
         </div>
       )}
     </section>
