@@ -1,16 +1,55 @@
-# React + Vite
+# Mini ToDo App
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+A modern, responsive, and feature-rich Todo List application built with **React** and **Vite**, styled with **Tailwind CSS v4**.
 
-Currently, two official plugins are available:
+## ✨ Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **Task Management**: Add, edit (inline), delete, and toggle completion of tasks.
+- **Filtering**: Easily filter tasks by "All", "Active", and "Completed" states.
+- **Dark/Light Mode**: Fully supported theme toggling.
+- **Local Persistence**: Tasks and theme preferences are automatically saved to your browser's `localStorage` so you never lose your data.
+- **Modern UI/UX**: Clean layout with premium animations, smooth transitions, inline-editing without layout shifts, and a fully responsive design for both mobile and desktop.
 
-## React Compiler
+## 🚀 Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- [React 19](https://react.dev/)
+- [Vite 8](https://vitejs.dev/)
+- [Tailwind CSS v4](https://tailwindcss.com/)
 
-## Expanding the Oxlint configuration
+## 📦 Getting Started
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+### Prerequisites
+
+Make sure you have [Node.js](https://nodejs.org/) installed on your machine.
+
+### Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/khoaminh1311/Mini-ToDo-List.git
+   cd Mini-ToDo-List
+   ```
+
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+3. Start the development server:
+   ```bash
+   npm run dev
+   ```
+
+4. Open your browser and navigate to the local URL (usually `http://localhost:5173`).
+
+## 🛠️ Build for Production
+
+To create a production-ready build, run:
+```bash
+npm run build
+```
+The optimized files will be generated in the `dist` directory.
+
+## 🌐 Deployment
+
+This project is optimized for zero-config deployment on platforms like [Vercel](https://vercel.com/). Simply import your repository into Vercel and it will automatically detect Vite and deploy your app successfully.

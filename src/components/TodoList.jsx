@@ -22,7 +22,7 @@ export default function TodoList({
   }
 
   return (
-    <section aria-label="Todo list" className="flex-1 mt-4 sm:mt-5">
+    <section aria-label="Todo list" className="flex-1 flex flex-col mt-4 sm:mt-5">
       {todos.length === 0 ? (
         /* Original Clean Empty State */
         <div className="py-20 sm:py-24 flex items-center justify-center text-center">
@@ -50,7 +50,7 @@ export default function TodoList({
 
       {/* Status tracking total tasks */}
       {totalTodosCount > 0 && (
-        <div className="mt-5 sm:mt-6 flex items-center justify-between text-xs sm:text-sm text-slate-500 dark:text-slate-400 font-medium px-1">
+        <div className="mt-auto pt-5 sm:pt-6 flex items-center justify-between text-xs sm:text-sm text-slate-500 dark:text-slate-400 font-medium px-1">
           <span>
             {totalTodosCount} {totalTodosCount === 1 ? 'task' : 'tasks'} total
           </span>
