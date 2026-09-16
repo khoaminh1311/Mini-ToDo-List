@@ -28,8 +28,12 @@ export default function TodoItem({
   const handleSaveSubmit = (e) => {
     e.preventDefault()
     const trimmed = draftText.trim()
-    // Do not accept empty or whitespace-only text
-    if (!trimmed) return
+
+    // If text is empty or whitespace-only, cancel edit mode instead of doing nothing
+    if (!trimmed) {
+      handleCancelClick()
+      return
+    }
 
     onSaveTodo(todo.id, trimmed)
   }
@@ -76,11 +80,10 @@ export default function TodoItem({
             aria-checked={todo.completed}
             aria-label={`Mark "${todo.text}" as ${todo.completed ? 'incomplete' : 'complete'}`}
             onClick={() => onToggleTodo(todo.id)}
-            className={`w-5 h-5 rounded-full flex items-center justify-center shrink-0 mt-0.5 transition-all duration-150 cursor-pointer active:scale-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-900 ${
-              todo.completed
+            className={`w-5 h-5 rounded-full flex items-center justify-center shrink-0 mt-0.5 transition-all duration-150 cursor-pointer active:scale-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-2 dark:focus-visible:ring-offset-slate-900 ${todo.completed
                 ? 'bg-blue-600 border-2 border-blue-600 text-white shadow-xs'
                 : 'border-2 border-slate-300 dark:border-slate-500 hover:border-blue-500 dark:hover:border-blue-500 hover:bg-blue-50/50 dark:hover:bg-slate-700/50 bg-white dark:bg-slate-800'
-            }`}
+              }`}
           >
             {/* Conditional rendering: show checkmark icon only when completed */}
             {todo.completed && (
@@ -100,11 +103,10 @@ export default function TodoItem({
 
           {/* Task text with proper word breaking and strike-through */}
           <span
-            className={`flex-1 min-w-0 text-sm sm:text-base font-normal leading-relaxed break-words [overflow-wrap:anywhere] transition-all duration-200 ${
-              todo.completed
+            className={`flex-1 min-w-0 text-sm sm:text-base font-normal leading-relaxed break-words [overflow-wrap:anywhere] transition-all duration-200 ${todo.completed
                 ? 'text-slate-400 line-through decoration-slate-300 dark:text-slate-500 dark:decoration-slate-600'
                 : 'text-slate-700 dark:text-slate-200'
-            }`}
+              }`}
           >
             {todo.text}
           </span>
