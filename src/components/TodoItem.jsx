@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 export default function TodoItem({
   todo,
@@ -11,6 +11,12 @@ export default function TodoItem({
 }) {
   // Local state for the controlled input during editing
   const [draftText, setDraftText] = useState(todo.text)
+
+  useEffect(() => {
+    if (isEditing) {
+      setDraftText(todo.text)
+    }
+  }, [isEditing, todo.text])
 
   // Switch to edit mode and populate draft text with current todo text
   const handleEditClick = () => {

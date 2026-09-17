@@ -166,7 +166,7 @@ export default function App() {
         {storageError && (
           <div
             role="alert"
-            className="fixed top-4 right-4 left-4 sm:top-6 sm:right-6 z-[100] sm:left-auto z-[100] flex items-center gap-3 px-4 py-3 bg-amber-50 dark:bg-slate-800 border border-amber-200 dark:border-amber-900/50 rounded-xl shadow-xl shadow-amber-900/10 dark:shadow-black/20"
+            className="fixed top-4 right-4 left-4 sm:top-6 sm:right-6 z-[100] sm:left-auto flex items-center gap-3 px-4 py-3 bg-amber-50 dark:bg-slate-800 border border-amber-200 dark:border-amber-900/50 rounded-xl shadow-xl shadow-amber-900/10 dark:shadow-black/20"
           >
             <div className="text-sm text-amber-800 dark:text-amber-400 font-medium">
               Storage is full or disabled. Changes won't be saved!
