@@ -11,7 +11,24 @@ export default function App() {
     try {
       const savedTodos = localStorage.getItem('todos')
       if (savedTodos) {
-        return JSON.parse(savedTodos)
+        const parsed = JSON.parse(savedTodos)
+        if (Array.isArray(parsed)) {
+          // Validate and sanitize each item to prevent app crashes
+          const validTodos = parsed
+            .filter(
+              (todo) =>
+                todo !== null &&
+                typeof todo === 'object' &&
+                typeof todo.id === 'string' &&
+                typeof todo.text === 'string'
+            )
+            .map((todo) => ({
+              id: todo.id,
+              text: todo.text,
+              completed: Boolean(todo.completed),
+            }))
+          return validTodos
+        }
       }
     } catch (error) {
       console.error('Failed to parse todos from localStorage', error)
@@ -19,9 +36,18 @@ export default function App() {
     return []
   })
 
+  // 2. State for storage error warning
+  const [storageError, setStorageError] = useState(false)
+
   // Save effect: Runs whenever the `todos` state changes
   useEffect(() => {
-    localStorage.setItem('todos', JSON.stringify(todos))
+    try {
+      localStorage.setItem('todos', JSON.stringify(todos))
+      setStorageError(false)
+    } catch (error) {
+      console.error('Failed to save todos to localStorage', error)
+      setStorageError(true)
+    }
   }, [todos])
 
   // 2. Filter state: 'all' | 'active' | 'completed'
@@ -42,7 +68,13 @@ export default function App() {
 
   // Theme effect: Save to localStorage and toggle 'dark' class on <html>
   useEffect(() => {
-    localStorage.setItem('todo-theme', JSON.stringify(isDarkMode))
+    try {
+      localStorage.setItem('todo-theme', JSON.stringify(isDarkMode))
+    } catch (error) {
+      console.error('Failed to save theme to localStorage', error)
+      // We don't trigger storageError for theme to avoid spamming, but we catch it safely.
+    }
+
     if (isDarkMode) {
       document.documentElement.classList.add('dark')
     } else {
@@ -127,10 +159,30 @@ export default function App() {
     <div className="min-h-screen w-full bg-[#f8fafc] dark:bg-slate-900 flex items-center justify-center px-4 py-6 sm:px-6 sm:py-8 md:p-8 overflow-x-hidden transition-colors duration-200">
       {/* Centered White Card Container with stable min-height and symmetrical padding */}
       <main className="w-full max-w-[480px] mx-auto min-h-[480px] sm:min-h-[520px] bg-white dark:bg-slate-800 rounded-3xl shadow-[0_16px_45px_-15px_rgba(0,0,0,0.07)] border border-slate-100 dark:border-slate-700 p-5 sm:p-7 md:p-8 flex flex-col transition-colors duration-200">
-        <TodoHeader 
-          isDarkMode={isDarkMode} 
-          onToggleTheme={() => setIsDarkMode(!isDarkMode)} 
+        <TodoHeader
+          isDarkMode={isDarkMode}
+          onToggleTheme={() => setIsDarkMode(!isDarkMode)}
         />
+        {storageError && (
+          <div
+            role="alert"
+            className="fixed top-4 right-4 left-4 sm:top-6 sm:right-6 z-[100] sm:left-auto z-[100] flex items-center gap-3 px-4 py-3 bg-amber-50 dark:bg-slate-800 border border-amber-200 dark:border-amber-900/50 rounded-xl shadow-xl shadow-amber-900/10 dark:shadow-black/20"
+          >
+            <div className="text-sm text-amber-800 dark:text-amber-400 font-medium">
+              Storage is full or disabled. Changes won't be saved!
+            </div>
+            <button
+              type="button"
+              onClick={() => setStorageError(false)}
+              className="text-amber-500 hover:text-amber-700 dark:text-amber-500 dark:hover:text-amber-300 transition-colors p-1 rounded-lg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-500 shrink-0 cursor-pointer"
+              aria-label="Close warning"
+            >
+              <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M18 6 6 18" /><path d="m6 6 12 12" />
+              </svg>
+            </button>
+          </div>
+        )}
         <TodoProgress totalCount={todos.length} completedCount={completedCount} />
         <TodoForm onAddTodo={handleAddTodo} />
         <TodoFilter currentFilter={filter} onFilterChange={setFilter} />
