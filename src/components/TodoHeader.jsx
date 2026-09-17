@@ -27,7 +27,8 @@ export default function TodoHeader({ isDarkMode, onToggleTheme }) {
       <button
         type="button"
         onClick={onToggleTheme}
-        aria-label="Toggle theme"
+        aria-label={isDarkMode ? 'Switch to light mode' : 'Switch to dark mode'}
+        aria-pressed={isDarkMode}
         className="text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700 p-2 rounded-xl transition-all duration-150 active:scale-90 cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 dark:focus-visible:ring-blue-400"
       >
         {isDarkMode ? (
